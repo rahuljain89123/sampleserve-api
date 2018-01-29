@@ -1,0 +1,14 @@
+
+machine:
+  python:
+    version: 2.7.12
+  services:
+    - postgresql
+test:
+  override:
+    - exit 0
+deployment:
+  prod:
+    branch: master
+    commands:
+      - ssh -p 2206 nick@159.203.74.70 -t "cd /home/nick/sampleserve-api && git fetch --all && git reset --hard origin/master"

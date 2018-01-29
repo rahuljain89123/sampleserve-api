@@ -1,0 +1,7 @@
+{{ user.email }} has accepted your invitation to collaborate on:<br>
+<ul>
+{%- for c in clients %}
+    <li>{{ c }}</li><br>
+{% endfor -%}
+</ul>
+<br>

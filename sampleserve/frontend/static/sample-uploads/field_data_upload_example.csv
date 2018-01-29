@@ -1,0 +1,9 @@
+Summary of Groundwater Field Data,,,,,,,,,,,,,
+Client Name,"<-Required, must match",,,,,,,,,,,,
+Site Name,"<-Required, must match",,,,,,,,,,,,
+,,,,,,,,,,,,,
+Sample ID,Date Collected,Free product (yes/no),Depth to free product (ft),Depth to water (ft),pH,Conductivity (ms/cm),Turbidity ,Dissolved Oxygen (mg/l),Temp (C),Oxygen Reduction Potential (ORP) (Mv),Drawdown (ft),Flow Rate (ml/min),Time Sampling (min)
+CAS,,FP,DTP,DTW,PH,CTY,TB,DO,TEMP,ORP,DDWN,FR,TS
+Unit,,,ft,ft,-,ms/cm,ntu,mg/l,C,Mv,ft,ml/min,min
+MW-1,1/7/14,1,0,13.5,7.5,4800,1027,3,51,320,0,0,0
+MW-2,1/7/14,1,0,9.8,7.2,3701,1211,5,57,-609,0,0,0

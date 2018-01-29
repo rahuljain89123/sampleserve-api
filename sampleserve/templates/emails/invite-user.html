@@ -1,0 +1,9 @@
+You've been invited to collaborate on:<br>
+<ul>
+{%- for c in clients %}
+    <li>{{ c }}</li><br>
+{% endfor -%}
+</ul>
+Visit this link to Accept Invitation:<br>
+<a href="{{ accept_link }}">{{ accept_link }}</a><br>
+<br>

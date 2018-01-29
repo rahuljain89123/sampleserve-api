@@ -1,0 +1,128 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Analytical Boxmap</title>
+  <meta name="description" content="Boxmap">
+
+  <!-- <link rel="stylesheet" href="http://test.sampleserve.net/backend/static/gotham/stylesheet.css"> -->
+  <!-- <link rel="stylesheet" href="http://test.sampleserve.net/backend/static/css/reports.css"> -->
+  <link rel="stylesheet" href="/backend/static/gotham/stylesheet.css">
+  <link rel="stylesheet" href="/backend/static/css/reports.css">
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    @page {
+      margin: 0;
+      padding: 0;
+    }
+    .analytical-table { page-break-after: avoid }
+  </style>
+</head>
+
+<body>
+  <div class="analytical-tables">
+    <div class="large-report-title-box">
+      <h2>{{ site.title }}</h2>
+      <div class="address">
+        {% if site.address %}
+          {{ site.address }}<br>
+        {% endif %}
+        {{ site.city }}, {{ site.state }} {% if site.zip %}{{ site.zip }}{% endif %}
+      </div>
+    </div>
+    {% for well_title in well_results.sorted_well_titles %}
+      {% with well = well_results.my_wells[well_title] %}
+      <div id="{{ well.id }}" class="analytical-table">
+        <table class="data-table">
+          <tbody>
+            <tr>
+              <td class="title">{{ well_title }}</td>
+              {% for sample in well.samples %}
+                <td class="date-collected">{{ sample.date_collected }}</td>
+              {% endfor %}
+            </tr>
+            {% for substance in substances %}
+              <tr>
+                {% if substance.abbreviation %}
+                  <td class="substance-title">{{ substance.abbreviation }}</td>
+                {% else %}
+                  <td class="substance-title">{{ substance.title }}</td>
+                {% endif %}
+                {% for sample in well.samples %}
+                  {% if substance.id in sample.substances %}
+                    {% if sample.substances[substance.id].less_than %}
+                      <td class="substance-value">{{ sample.substances[substance.id].less_than }}</td>
+                    {% elif sample.substances[substance.id].free_product %}
+                      <td class="substance-value danger free-product">FP</td>
+                    {% elif sample.substances[substance.id].value == 0 %}
+                      <td class="substance-value">ND</td>
+                    {% else %}
+                      {% if sample.substances[substance.id].criteria_values and sample.substances[substance.id].value > sample.substances[substance.id].criteria_values.value %}
+                        <td class="substance-value danger">{{ "{:,}".format(sample.substances[substance.id].value|int) }}
+                          <div class="over-amount hidden">(+ {{ sample.substances[substance.id].value - sample.substances[substance.id].criteria_values.value }})</div>
+                        </td>
+                      {% else %}
+                        <td class="substance-value">{{ "{:,}".format(sample.substances[substance.id].value|int) }}</td>
+                      {% endif %}
+                    {% endif %}
+                  {% else %}
+                    <td class="substance-value">--</td>
+                  {% endif %}
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endwith %}
+    {% endfor %}
+    <div class="legend">
+      <table class="legend-table">
+        <tr>
+          <td width="33%">
+            Site Data Compared to<br>&quot;{{ criteria.title }}&quot; (ppb)
+          </td>
+          <td width="33%">
+            <table class="data-table">
+              <tr>
+                <td><span class="substance-value">ND</span></td>
+                <td>Not Sampled</td>
+              </tr>
+              <tr>
+                <td><span class="substance-value">--</span></td>
+                <td>Not Detected</td>
+              </tr>
+              <tr>
+                <td><span class="substance-value danger free-product">FP</span></td>
+                <td>Free Product</td>
+              </tr>
+            </table>
+          </td>
+          <td width="33%">
+            <table class="data-table substances">
+              {% for substance in substances %}
+                <tr>
+                  {% if substance.abbreviation %}
+                      <td>{{ substance.abbreviation }}</td>
+                    {% else %}
+                      <td>{{ substance.title }}</td>
+                    {% endif %}
+                </tr>
+              {% endfor %}
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

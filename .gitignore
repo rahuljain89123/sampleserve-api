@@ -1,0 +1,17 @@
+*.pyc
+venv/
+env/
+.cache/
+.DS_Store
+*.egg-info/
+*.eggs
+.coverage
+build/
+dist/
+sampleserve/config/dev.py
+sampleserve/config/prod.py
+sampleserve/config/settings.py
+sampleserve/frontend/static/reports/*
+sampleserve/frontend/static/contours/*
+sampleserve/frontend/static/boxmaps/*
+sampleserve/frontend/static/sitemaps/*

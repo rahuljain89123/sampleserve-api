@@ -1,0 +1,863 @@
+FORMAT: 1A
+HOST: http://test.sampleserve.dev/api/v1
+
+# Intro
+
+# Group Authentication
+
+_Security Roles_
+
+- Admin (Samples\
+erve)
+- LabAdmin (Lab Billing & Management)
+- LabAssociates (Sample Receiving Staff)
+- CompanyAdmin (Company Owner & Management)
+- CompanyAssociate (Company Personnel)
+- ClientManager (Person in charge of a group of clients)
+- Technician (Just a data collection person)
+
+Sampleserve has several roles which display different things. The mobile app is intended for use by CompanyAdmins, CompanyAssociates, ClientManagers, and Technicans only. Each role will allow the same features, data collection.
+
+Each role is accessible for login with the following pattern:
+
+    username: companyadmin@nickwoodhams.com
+    password: companyadmin
+
+
+## Authentication [/auth/signin]
+
+### Login User [POST]
+
++ Request (application/json)
+
+        {
+            "email": "companyadmin@nickwoodhams.com",
+            "password": "companyadmin"
+        }
+
++ Response 200 (application/json)
+
+        {
+          "success": true
+        }
+
+## Roles [/roles/]
+
+### List all roles [GET]
+
++ Response 200 (application/json)
+
+        [
+          {
+            "description": "Admin",
+            "id": 1,
+            "name": "Admin"
+          },
+          {
+            "description": "Lab Admin",
+            "id": 2,
+            "name": "LabAdmin"
+          },
+          {
+            "description": "Lab Associate",
+            "id": 3,
+            "name": "LabAssociate"
+          },
+          {
+            "description": "Company Admin",
+            "id": 4,
+            "name": "CompanyAdmin"
+          },
+          {
+            "description": "Company Associate",
+            "id": 5,
+            "name": "CompanyAssociate"
+          },
+          {
+            "description": "Project Manager",
+            "id": 6,
+            "name": "ClientManager"
+          },
+          {
+            "description": "Technician",
+            "id": 7,
+            "name": "Technician"
+          }
+        ]
+
+## User [/user/]
+
+### Get currently authorized user [GET]
+
++ Response 200 (application/json)
+
+        {
+          "active": true,
+          "company_ids": [],
+          "created_at": "Fri, 26 May 2017 08:22:40 GMT",
+          "email": "admin@nickwoodhams.com",
+          "firstname": "Sampleserve",
+          "id": 1,
+          "invite_code": null,
+          "invitee_id": null,
+          "lab_id": 0,
+          "name": "Sampleserve Mr. Admin",
+          "password": "$2b$12$s6D0rYewYJsQK6NycTR7ZOFXudEyn8UKtW.y03CM8/JfymkDqAWRK",
+          "pending": true,
+          "phone": "123-456-7890",
+          "photo_url": null,
+          "reset_code": null,
+          "role_id": 1
+        }
+
+## Users [/users/]
+
+### Get all users permitted to see [GET]
+
++ Response 200 (application/json)
+
+        [
+          {
+            "active": true,
+            "company_ids": [],
+            "created_at": "Fri, 26 May 2017 08:22:40 GMT",
+            "email": "admin@nickwoodhams.com",
+            "firstname": "Sampleserve",
+            "id": 1,
+            "invite_code": null,
+            "invitee_id": null,
+            "lab_id": 0,
+            "name": "Sampleserve Mr. Admin",
+            "password": "$2b$12$s6D0rYewYJsQK6NycTR7ZOFXudEyn8UKtW.y03CM8/JfymkDqAWRK",
+            "pending": true,
+            "phone": "123-456-7890",
+            "photo_url": null,
+            "reset_code": null,
+            "role_id": 1
+          },
+          {
+            "active": true,
+            "company_ids": [],
+            "created_at": "Fri, 26 May 2017 08:22:40 GMT",
+            "email": "labadmin@nickwoodhams.com",
+            "firstname": "Mr.",
+            "id": 2,
+            "invite_code": null,
+            "invitee_id": null,
+            "lab_id": 0,
+            "name": "Mr. LabAdmin",
+            "password": "$2b$12$SasNEe5CPzXenO9sNhVq1e7Oh3l/tC1gGAxJO9J.jjMRCtbp3Q4x6",
+            "pending": true,
+            "phone": "123-456-7890",
+            "photo_url": null,
+            "reset_code": null,
+            "role_id": 2
+          },
+          {
+            "active": true,
+            "company_ids": [],
+            "created_at": "Fri, 26 May 2017 08:22:40 GMT",
+            "email": "labassociate@nickwoodhams.com",
+            "firstname": "Mr.",
+            "id": 3,
+            "invite_code": null,
+            "invitee_id": null,
+            "lab_id": 0,
+            "name": "Mr. LabAssociate",
+            "password": "$2b$12$JmyS4p5CyJ0WxD2KyhpoR./I3aDwDPL1Ljrn63lwpOVDPrq3oqCve",
+            "pending": true,
+            "phone": "123-456-7890",
+            "photo_url": null,
+            "reset_code": null,
+            "role_id": 3
+          },
+          {
+            "active": true,
+            "company_ids": [
+              53
+            ],
+            "created_at": "Fri, 26 May 2017 08:22:40 GMT",
+            "email": "companyadmin@nickwoodhams.com",
+            "firstname": "Mr.",
+            "id": 4,
+            "invite_code": null,
+            "invitee_id": null,
+            "lab_id": 0,
+            "name": "Mr. CompanyAdmin",
+            "password": "$2b$12$gx3CKwuokUf6z4j2X39LxuB3eP1sZ6PkhWFT8dEvUXNE1CV4Jw4M6",
+            "pending": true,
+            "phone": "123-456-7890",
+            "photo_url": null,
+            "reset_code": null,
+            "role_id": 4
+          },
+          {
+            "active": true,
+            "company_ids": [
+              53
+            ],
+            "created_at": "Fri, 26 May 2017 08:22:41 GMT",
+            "email": "companyassociate@nickwoodhams.com",
+            "firstname": "Mr.",
+            "id": 5,
+            "invite_code": null,
+            "invitee_id": null,
+            "lab_id": 0,
+            "name": "Mr. CompanyAssociate",
+            "password": "$2b$12$Nl.YjE05WdmpLGwgNUn/duVzjNLQVVvTU4oGzZqLVUq3Pf8gcXRAC",
+            "pending": true,
+            "phone": "123-456-7890",
+            "photo_url": null,
+            "reset_code": null,
+            "role_id": 5
+          },
+          {
+            "active": true,
+            "company_ids": [
+              53
+            ],
+            "created_at": "Fri, 26 May 2017 08:22:41 GMT",
+            "email": "clientmanager@nickwoodhams.com",
+            "firstname": "Mr.",
+            "id": 6,
+            "invite_code": null,
+            "invitee_id": null,
+            "lab_id": 0,
+            "name": "Mr. ClientManager",
+            "password": "$2b$12$ovXZHfLsLfZBGa.nzdyvcu1tfp44yA6RBtjvptbz7WN/m90NrrEKq",
+            "pending": true,
+            "phone": "123-456-7890",
+            "photo_url": null,
+            "reset_code": null,
+            "role_id": 6
+          },
+          {
+            "active": true,
+            "company_ids": [],
+            "created_at": "Fri, 26 May 2017 08:22:41 GMT",
+            "email": "technician@nickwoodhams.com",
+            "firstname": "Mr.",
+            "id": 7,
+            "invite_code": null,
+            "invitee_id": null,
+            "lab_id": 0,
+            "name": "Mr. Technician",
+            "password": "$2b$12$Qg3.TiOR0AkXv3K6.pNvV.ngpon3Bm4ldoizAUX2SzuJUI1DyYTOO",
+            "pending": true,
+            "phone": "123-456-7890",
+            "photo_url": null,
+            "reset_code": null,
+            "role_id": 7
+          }
+        ]
+
+# Group List Endpoints
+
+## Index [/]
+
+To get an index of the API endpoints.
+
+For any of the /api/v1/views you can pass the `page` and/or `per_page` request params to get a longer list of objects or a particular page.
+
+### List API Endpoints [GET]
+
++ Response 200 (application/json)
+
+        {
+            "auth_url": "/api/v1/auth",
+            "companies_url": "/api/v1/companies/",
+            "consultants_url": "/api/v1/consultants/",
+            "contacts_url": "/api/v1/contacts/",
+            "criterias_url": "/api/v1/criterias/",
+            "frequencies_url": "/api/v1/frequencies/",
+            "labs_url": "/api/v1/labs/",
+            "managers_url": "/api/v1/managers/",
+            "offices_url": "/api/v1/offices/",
+            "clients_url": "/api/v1/clients/",
+            "reports_url": "/api/v1/reports",
+            "roles_url": "/api/v1/roles/",
+            "samplers_url": "/api/v1/samplers/",
+            "samples_url": "/api/v1/samples/",
+            "schedules_url": "/api/v1/schedules/",
+            "schedulewelltests_url": "/api/v1/schedulewelltests/",
+            "sitedata_url": "/api/v1/sitedata/",
+            "sitemaps_url": "/api/v1/sitemaps/",
+            "sitemapwells_url": "/api/v1/sitemapwells/",
+            "sites_url": "/api/v1/sites/",
+            "states_url": "/api/v1/states/",
+            "substancegroups_url": "/api/v1/substancegroups/",
+            "substances_url": "/api/v1/substances/",
+            "testmaterials_url": "/api/v1/testmaterials/",
+            "tests_url": "/api/v1/tests/",
+            "uploads_url": "/api/v1/uploads/",
+            "user_url": "/api/v1/user",
+            "users_url": "/api/v1/users/",
+            "wellimages_url": "/api/v1/wellimages/",
+            "wells_url": "/api/v1/wells/"
+        }
+
+# Group Companies
+
+## Companies [/companies/]
+
+### List companies [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "active": true,
+                "address": "123 Main Street",
+                "cell": "248-555-5556",
+                "city": "Monopolyville",
+                "contact": "Dick Cheney",
+                "email": "dick@bigoil.com",
+                "fax": "",
+                "id": 1,
+                "is_deletable": true,
+                "lab_id": 0,
+                "notes": "Do not contact the O/O. For questions contact Know-it-all Engineering, Inc.",
+                "phone": "248-555-5555",
+                "state": "IL",
+                "title": "Example Site",
+                "user_ids": [],
+                "zip": "47893"
+            }
+        ]
+
+### Create a new company [POST]
+
++ Request (application/json)
+
+        {
+            "title": "Great Company"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "active": true,
+            "address": null,
+            "cell": null,
+            "city": null,
+            "contact": "",
+            "email": null,
+            "fax": null,
+            "id": 54,
+            "is_deletable": true,
+            "lab_id": null,
+            "notes": null,
+            "phone": null,
+            "state": null,
+            "title": "Great Company",
+            "user_ids": [],
+            "zip": null
+        }
+
+## Companies [/companies/<company_id>]
+
+### Update company [PATCH]
+
++ Request (application/json)
+
+        {
+            "address": "456 Great Ave",
+        }
+
++ Response 200 (application/json)
+
+        [
+            {
+                "active": true,
+                "address": "456 Great Ave",
+                "cell": "248-555-5556",
+                "city": "Monopolyville",
+                "contact": "Dick Cheney",
+                "email": "dick@bigoil.com",
+                "fax": "",
+                "id": 1,
+                "is_deletable": true,
+                "lab_id": 0,
+                "notes": "Do not contact the O/O. For questions contact Know-it-all Engineering, Inc.",
+                "phone": "248-555-5555",
+                "state": "IL",
+                "title": "Example Site",
+                "user_ids": [],
+                "zip": "47893"
+            }
+        ]
+
+
+# Group Schedules/Work Scopes
+
+## Schedules [/schedules/]
+
+### List Schedules [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "active": true,
+                "date": "Tue, 30 May 2017 00:00:00 GMT",
+                "endtime": null,
+                "finished": false,
+                "frequency_association": null,
+                "gauged_well_ids": [],
+                "id": 19837,
+                "release_number": null,
+                "site_id": 129,
+                "skipped_well_ids": [],
+                "starttime": null,
+                "test_ids": [],
+                "timeofday": null,
+                "typeofactivity": null
+            }
+        ]
+
+## Schedules [/schedules/{id}]
+
+### Get Schedule [GET]
+
+
++ Parameters
+    + id (integer)
+
++ Response 200 (application/json)
+
+        {
+            "active": true,
+            "date": "Tue, 30 May 2017 00:00:00 GMT",
+            "endtime": null,
+            "finished": false,
+            "frequency_association": null,
+            "gauged_well_ids": [],
+            "id": 19837,
+            "release_number": null,
+            "site_id": 129,
+            "skipped_well_ids": [],
+            "starttime": null,
+            "test_ids": [],
+            "timeofday": null,
+            "typeofactivity": null
+        }
+
+# Group Sites
+
+## Sites [/sites/]
+
+### List Sites [GET]
+
++ Response 200 (application/json)
+
+        [
+          {
+            "active": true,
+            "additional_consultant_ids": null,
+            "additional_owner_ids": null,
+            "address": "",
+            "background": null,
+            "city": "",
+            "company_id": 53,
+            "consultant_id": null,
+            "contact": "",
+            "contact_email": null,
+            "contact_phone": "",
+            "county": "",
+            "facility_id": "",
+            "history": null,
+            "id": 129,
+            "lab_id": 0,
+            "latitude": 0.0,
+            "longitude": 0.0,
+            "manager_id": null,
+            "notes": null,
+            "client_id": 3,
+            "qaqc_duplicates": false,
+            "qaqc_duplicates_per_samples": 0,
+            "qaqc_duplicates_test_ids": null,
+            "qaqc_duplicates_type": null,
+            "qaqc_duplicates_well_ids": null,
+            "qaqc_equipmentblanks": false,
+            "qaqc_equipmentblanks_per_samples": 0,
+            "qaqc_equipmentblanks_test_ids": null,
+            "qaqc_equipmentblanks_type": null,
+            "qaqc_fieldblanks": false,
+            "qaqc_fieldblanks_per_samples": 0,
+            "qaqc_fieldblanks_test_ids": null,
+            "qaqc_fieldblanks_type": null,
+            "qaqc_msmsds": false,
+            "qaqc_msmsds_per_samples": 0,
+            "qaqc_msmsds_test_ids": null,
+            "qaqc_msmsds_type": null,
+            "qaqc_msmsds_well_ids": null,
+            "qaqc_tripblanks": false,
+            "qaqc_tripblanks_per_samples": 0,
+            "qaqc_tripblanks_test_ids": null,
+            "qaqc_tripblanks_type": null,
+            "sampler_id": null,
+            "sort": 0,
+            "start_sampling_on": 0,
+            "state": "",
+            "state_id": 35,
+            "substance_ids": [
+              2,
+              3,
+              4,
+              8,
+              32,
+              33,
+              34,
+              40,
+              80
+            ],
+            "summary": null,
+            "title": "Test Site",
+            "user_ids": [
+              7
+            ],
+            "well_ids": [
+              2422,
+              2423,
+              2425,
+              2426,
+              2427,
+              2428,
+              2429,
+              2430,
+              2431,
+              2432,
+              2433,
+              2434,
+              2435,
+              2436,
+              2437,
+              2438,
+              2439,
+              2440,
+              2441,
+              2442,
+              2443,
+              2444,
+              2445,
+              2446,
+              2447,
+              2448,
+              2449,
+              2450,
+              2451,
+              2452,
+              2453,
+              2454,
+              2455,
+              2458,
+              2459,
+              2460,
+              2461,
+              2462,
+              2463,
+              2464,
+              2465,
+              2466
+            ],
+            "zip": ""
+          }
+        ]
+
+## Sites [/sites/{id}]
+
+### Get Site [GET]
+
++ Response 200 (application/json)
+
+        {
+          "active": true,
+          "additional_consultant_ids": null,
+          "additional_owner_ids": null,
+          "address": "",
+          "background": null,
+          "city": "",
+          "company_id": 53,
+          "consultant_id": null,
+          "contact": "",
+          "contact_email": null,
+          "contact_phone": "",
+          "county": "",
+          "facility_id": "",
+          "history": null,
+          "id": 129,
+          "lab_id": 0,
+          "latitude": 0.0,
+          "longitude": 0.0,
+          "manager_id": null,
+          "notes": null,
+          "client_id": 3,
+          "qaqc_duplicates": false,
+          "qaqc_duplicates_per_samples": 0,
+          "qaqc_duplicates_test_ids": null,
+          "qaqc_duplicates_type": null,
+          "qaqc_duplicates_well_ids": null,
+          "qaqc_equipmentblanks": false,
+          "qaqc_equipmentblanks_per_samples": 0,
+          "qaqc_equipmentblanks_test_ids": null,
+          "qaqc_equipmentblanks_type": null,
+          "qaqc_fieldblanks": false,
+          "qaqc_fieldblanks_per_samples": 0,
+          "qaqc_fieldblanks_test_ids": null,
+          "qaqc_fieldblanks_type": null,
+          "qaqc_msmsds": false,
+          "qaqc_msmsds_per_samples": 0,
+          "qaqc_msmsds_test_ids": null,
+          "qaqc_msmsds_type": null,
+          "qaqc_msmsds_well_ids": null,
+          "qaqc_tripblanks": false,
+          "qaqc_tripblanks_per_samples": 0,
+          "qaqc_tripblanks_test_ids": null,
+          "qaqc_tripblanks_type": null,
+          "sampler_id": null,
+          "sort": 0,
+          "start_sampling_on": 0,
+          "state": "",
+          "state_id": 35,
+          "substance_ids": [
+            2,
+            3,
+            4,
+            8,
+            32,
+            33,
+            34,
+            40,
+            80
+          ],
+          "summary": null,
+          "title": "Test Site",
+          "user_ids": [
+            7
+          ],
+          "well_ids": [
+            2422,
+            2423,
+            2425,
+            2426,
+            2427,
+            2428,
+            2429,
+            2430,
+            2431,
+            2432,
+            2433,
+            2434,
+            2435,
+            2436,
+            2437,
+            2438,
+            2439,
+            2440,
+            2441,
+            2442,
+            2443,
+            2444,
+            2445,
+            2446,
+            2447,
+            2448,
+            2449,
+            2450,
+            2451,
+            2452,
+            2453,
+            2454,
+            2455,
+            2458,
+            2459,
+            2460,
+            2461,
+            2462,
+            2463,
+            2464,
+            2465,
+            2466
+          ],
+          "zip": ""
+        }
+# Group SiteMaps
+
+## SiteMaps [/sitemaps/]
+
+### List SiteMaps [GET]
+
++ Response 200 (application/json)
+
+        [
+          {
+            "height": null,
+            "id": 135,
+            "site_id": 129,
+            "title": "My New SiteMap",
+            "url": "https://cdn.filestackcontent.com/sGJW7yJoRUOZwcQkQQwS",
+            "wells": [
+              {
+                "id": 2468,
+                "site_id": null,
+                "site_map_id": 135,
+                "well_id": 2422,
+                "xpos": 1414,
+                "xpos_fields": null,
+                "ypos": 928,
+                "ypos_fields": null
+              },
+              {
+                "id": 2469,
+                "site_id": null,
+                "site_map_id": 135,
+                "well_id": 2423,
+                "xpos": 1625,
+                "xpos_fields": null,
+                "ypos": 867,
+                "ypos_fields": null
+              },
+              {
+                "id": 2470,
+                "site_id": null,
+                "site_map_id": 135,
+                "well_id": 2432,
+                "xpos": 1529,
+                "xpos_fields": null,
+                "ypos": 1096,
+                "ypos_fields": null
+              },
+              {
+                "id": 2471,
+                "site_id": null,
+                "site_map_id": 135,
+                "well_id": 2433,
+                "xpos": 1530,
+                "xpos_fields": null,
+                "ypos": 960,
+                "ypos_fields": null
+              },
+              {
+                "id": 2472,
+                "site_id": null,
+                "site_map_id": 135,
+                "well_id": 2434,
+                "xpos": 1579,
+                "xpos_fields": null,
+                "ypos": 1231,
+                "ypos_fields": null
+              },
+              {
+                "id": 2473,
+                "site_id": null,
+                "site_map_id": 135,
+                "well_id": 2435,
+                "xpos": 1241,
+                "xpos_fields": null,
+                "ypos": 1173,
+                "ypos_fields": null
+              },
+              {
+                "id": 2474,
+                "site_id": null,
+                "site_map_id": 135,
+                "well_id": 2436,
+                "xpos": 1390,
+                "xpos_fields": null,
+                "ypos": 1018,
+                "ypos_fields": null
+              },
+              {
+                "id": 2475,
+                "site_id": null,
+                "site_map_id": 135,
+                "well_id": 2437,
+                "xpos": 1301,
+                "xpos_fields": null,
+                "ypos": 1020,
+                "ypos_fields": null
+              },
+              {
+                "id": 2476,
+                "site_id": null,
+                "site_map_id": 135,
+                "well_id": 2438,
+                "xpos": 1552,
+                "xpos_fields": null,
+                "ypos": 1195,
+                "ypos_fields": null
+              },
+              {
+                "id": 2477,
+                "site_id": null,
+                "site_map_id": 135,
+                "well_id": 2439,
+                "xpos": 1286,
+                "xpos_fields": null,
+                "ypos": 1328,
+                "ypos_fields": null
+              }
+            ],
+            "width": null
+          }
+        ]
+
+# Group wells
+
+## Wells [/wells/]
+
+### List Wells [GET]
+
++ Response 200 (application/json)
+
+
+        [
+          {
+            "active": true,
+            "depth_to_bottom": 24.6,
+            "diameter": 2.0,
+            "est_depth_to_water": 20.0,
+            "frequency_id": null,
+            "id": 2422,
+            "latitude": 43.9003,
+            "longitude": -85.2573,
+            "material": "Steel",
+            "notes": "Under the oak tree",
+            "purge_water_disposal": "Place in container on-site",
+            "sampletechnique": "3 Volumes/Grab",
+            "screenlength": 5.0,
+            "site_id": 129,
+            "sort": 0,
+            "title": "MW-2",
+            "top_of_casing": 1010.85,
+            "xpos": 0,
+            "xpos_fields": 0,
+            "ypos": 0,
+            "ypos_fields": 0
+          }
+        ]
+
+## WellImages [/wellimages/{?well_id}]
+
+### List Well Images [GET]
+
++ Parameters
+    + well_id (integer)
+
++ Response 200 (application/json)
+
+        [
+          {
+            "filestack_handle": null,
+            "height_md": null,
+            "height_sm": null,
+            "id": 3014,
+            "last_modified": null,
+            "sort": null,
+            "url_lg": "https://cdn.filestackcontent.com/G8PoYWcBRDnchpAAGCqm",
+            "url_md": null,
+            "well_id": 2432,
+            "width_md": null,
+            "width_sm": null
+          }
+        ]

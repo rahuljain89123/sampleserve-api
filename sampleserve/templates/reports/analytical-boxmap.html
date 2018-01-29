@@ -1,0 +1,169 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Analytical Boxmap</title>
+  <meta name="description" content="Boxmap">
+
+  <!-- <link rel="stylesheet" href="http://test.sampleserve.net/backend/static/gotham/stylesheet.css"> -->
+  <!-- <link rel="stylesheet" href="http://test.sampleserve.net/backend/static/css/reports.css"> -->
+  <link rel="stylesheet" href="/backend/static/gotham/stylesheet.css">
+  <link rel="stylesheet" href="/backend/static/css/reports.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.min.css">
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+  <script
+    src="https://code.jquery.com/jquery-1.12.4.min.js"
+    integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+    crossorigin="anonymous"></script>
+  <script
+    src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+    crossorigin="anonymous"></script>
+
+
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    @page {
+      size: {{ (sitemap.width * sitemap.scale) / 96 }}in {{ (sitemap.height * sitemap.scale) / 96 }}in;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="boxmap" style="height:{{ sitemap.height * sitemap.scale }}px; width:{{ sitemap.width * sitemap.scale }}px; background:url('{{ sitemap.url }}'); background-size:{{ sitemap.width * sitemap.scale }}px {{ sitemap.height * sitemap.scale }}px; background-repeat:no-repeat;  background-position: center center; position: relative;">
+    <div class="title-box" style="position: absolute;">
+      <h5>{{ site.title }}</h5>
+      <h2>{{ sitemap.title }}</h2>
+      <div class="address">
+        {% if site.address %}
+          {{ site.address }}<br>
+        {% endif %}
+        {{ site.city }}, {{ site.state }} {% if site.zip %}{{ site.zip }}{% endif %}
+      </div>
+    </div>
+    {% for well_id, sm_well in well_results.my_wells.items() %}
+      <svg style="position:absolute; z-index: 1; top:0; left:0; overflow: visible; height: {{ sitemap.height * sitemap.scale }}px; width: {{ sitemap.width * sitemap.scale }}px;" viewBox="0 0 {{ sitemap.width  * sitemap.scale }} {{ sitemap.height * sitemap.scale }}">
+        <line id="sm-well-line-{{ sm_well.id }}" x1="{{ sm_well.xpos * sitemap.scale }}" y1="{{ sm_well.ypos * sitemap.scale }}" x2="{{ sm_well.xpos_fields }}" y2="{{ sm_well.ypos_fields + 20 }}" style="stroke:#c9302c; stroke-width:2;" />
+      </svg>
+      <div id="{{ sm_well.id }}" class="analytical-box" style="height:{{ box.height - 10 }}px; width:{{ box.width - 10 }}px; top:{{ sm_well.ypos_fields }}px; left:{{ sm_well.xpos_fields }}px;">
+        <table class="data-table">
+          <tbody>
+            <tr>
+              <td class="title">{{ sm_well.well.title }}</td>
+              {% for sample in sm_well.samples %}
+                <td class="date-collected">{{ sample.date_collected }}</td>
+              {% endfor %}
+            </tr>
+            {% for substance in substances %}
+              <tr>
+                {% if substance.abbreviation %}
+                  <td class="substance-title">{{ substance.abbreviation }}</td>
+                {% else %}
+                  <td class="substance-title">{{ substance.title }}</td>
+                {% endif %}
+                {% for sample in sm_well.samples %}
+                  {% if substance.id in sample.substances %}
+                    {% if sample.substances[substance.id].less_than %}
+                      <td class="substance-value">{{ sample.substances[substance.id].less_than }}</td>
+                    {% elif sample.substances[substance.id].free_product %}
+                      <td class="substance-value danger free-product">FP</td>
+                    {% elif sample.substances[substance.id].value == 0 %}
+                      <td class="substance-value">ND</td>
+                    {% else %}
+                      {% if sample.substances[substance.id].criteria_values and sample.substances[substance.id].value > sample.substances[substance.id].criteria_values.value %}
+                        <td class="substance-value danger">{{ "{:,}".format(sample.substances[substance.id].value|int) }}
+                          <div class="over-amount hidden">(+ {{ sample.substances[substance.id].value - sample.substances[substance.id].criteria_values.value }})</div>
+                        </td>
+                      {% else %}
+                        <td class="substance-value">{{ "{:,}".format(sample.substances[substance.id].value|int) }}</td>
+                      {% endif %}
+                    {% endif %}
+                  {% else %}
+                    <td class="substance-value">--</td>
+                  {% endif %}
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endfor %}
+    <div class="legend" style="position: absolute;">
+      <table class="legend-table">
+        <tr>
+          <td width="33%">
+            Site Data Compared to<br>&quot;{{ criteria.title }}&quot; (ppb)
+          </td>
+          <td width="33%">
+            <table class="data-table">
+              <tr>
+                <td><span class="substance-value">ND</span></td>
+                <td>Not Sampled</td>
+              </tr>
+              <tr>
+                <td><span class="substance-value">--</span></td>
+                <td>Not Detected</td>
+              </tr>
+              <tr>
+                <td><span class="substance-value danger free-product">FP</span></td>
+                <td>Free Product</td>
+              </tr>
+            </table>
+          </td>
+          <td width="33%">
+            <table class="data-table substances">
+              {% for substance in substances %}
+                <tr>
+                  {% if substance.abbreviation %}
+                      <td>{{ substance.abbreviation }}</td>
+                    {% else %}
+                      <td>{{ substance.title }}</td>
+                    {% endif %}
+                </tr>
+              {% endfor %}
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+<script>
+  $(function() {
+    $( ".analytical-box" ).draggable({
+      drag: function( event, ui ) {
+        var lineId = ui.helper.attr('id');
+        var top = ui.offset.top;
+        var left = ui.offset.left;
+        $('#sm-well-line-' + lineId).attr('x2', left)
+        $('#sm-well-line-' + lineId).attr('y2', top + 20)
+      },
+      stop: function( event, ui ) {
+        var lineId = ui.helper.attr('id');
+        var top = ui.offset.top;
+        var left = ui.offset.left;
+        $.ajax({
+            type: 'PATCH',
+            url: '/api/v1/sitemapwells/' + lineId,
+            data: JSON.stringify({xpos_fields: ui.offset.left, ypos_fields: ui.offset.top}),
+            success: function(data) {
+              console.log("Saved updated position!")
+            },
+            contentType: "application/json",
+            dataType: 'json'
+        });
+      }
+    });
+  });
+</script>
+</html>

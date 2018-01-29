@@ -1,0 +1,8 @@
+Well Uploads,,,,,,,,,,,
+Client Name,"<-Required, must match",,,,,,,,,,
+Site Name,"<-Required, must match",,,,,,,,,,
+,,,,,,,,,,,
+Well/Sample ID,Top of Casing Elevation,Well Diameter (inches),Well Material,Screen Length (ft),Sampling Technique,GPS Latitude (decimal),GPS Longitude (decimal),Estimated Depth to Water (ft),Measured Depth to Bottom (ft),Well Sampling Purge Water Disposal,Well Notes or other Well Specific Information
+MW-1,1010.85,2,PVC,5,Low Flow,43.90027,-85.25782,21,24.6,Pour on ground,This well is located under a dumpster.
+MW-2,1010.85,2,Steel,5,3 Volumes/Grab,43.90031,-85.25729,20,24.6,Place in container,Under the oak tree
+MW-3M1,1010.85,2,Other,5,Other,43.90058,-85.25711,18,24.6,Other,Near the property line

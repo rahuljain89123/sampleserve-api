@@ -1,0 +1,23 @@
+
+sample = [
+    (3, {'date_collected': datetime.date(2007, 5, 1), 'date_analyzed': datetime.date(2007, 5, 1), 'date_extracted': datetime.date(2007, 5, 1), 'site_id': 1, 'schedule_id': None, 'upload_id': None, 'active': True, 'id': 3}),
+    (4, {'date_collected': datetime.date(2007, 7, 18), 'date_analyzed': datetime.date(2007, 7, 18), 'date_extracted': datetime.date(2007, 7, 18), 'site_id': 1, 'schedule_id': None, 'upload_id': None, 'active': True, 'id': 4}),
+    (5, {'date_collected': datetime.date(2007, 11, 21), 'date_analyzed': datetime.date(2007, 11, 21), 'date_extracted': datetime.date(2007, 11, 21), 'site_id': 1, 'schedule_id': None, 'upload_id': None, 'active': True, 'id': 5}),
+    (6, {'date_collected': datetime.date(2008, 3, 10), 'date_analyzed': datetime.date(2008, 3, 10), 'date_extracted': datetime.date(2008, 3, 10), 'site_id': 1, 'schedule_id': None, 'upload_id': None, 'active': True, 'id': 6}),
+    (7, {'date_collected': datetime.date(2008, 6, 13), 'date_analyzed': datetime.date(2008, 6, 13), 'date_extracted': datetime.date(2008, 6, 13), 'site_id': 1, 'schedule_id': None, 'upload_id': None, 'active': True, 'id': 7}),
+    (8, {'date_collected': datetime.date(2007, 5, 1), 'date_analyzed': datetime.date(2007, 5, 1), 'date_extracted': datetime.date(2007, 5, 1), 'site_id': 2, 'schedule_id': None, 'upload_id': None, 'active': True, 'id': 8}),
+    (9, {'date_collected': datetime.date(2007, 7, 18), 'date_analyzed': datetime.date(2007, 7, 18), 'date_extracted': datetime.date(2007, 7, 18), 'site_id': 2, 'schedule_id': None, 'upload_id': None, 'active': True, 'id': 9}),
+    (10, {'date_collected': datetime.date(2007, 11, 21), 'date_analyzed': datetime.date(2007, 11, 21), 'date_extracted': datetime.date(2007, 11, 21), 'site_id': 2, 'schedule_id': None, 'upload_id': None, 'active': True, 'id': 10}),
+    (11, {'date_collected': datetime.date(2008, 3, 10), 'date_analyzed': datetime.date(2008, 3, 10), 'date_extracted': datetime.date(2008, 3, 10), 'site_id': 2, 'schedule_id': None, 'upload_id': None, 'active': True, 'id': 11}),
+    (12, {'date_collected': datetime.date(2008, 6, 13), 'date_analyzed': datetime.date(2008, 6, 13), 'date_extracted': datetime.date(2008, 6, 13), 'site_id': 2, 'schedule_id': None, 'upload_id': None, 'active': True, 'id': 12}),
+    (1287, {'date_collected': datetime.date(2013, 1, 17), 'date_analyzed': None, 'date_extracted': None, 'site_id': 79, 'schedule_id': 19753, 'upload_id': None, 'active': True, 'id': 1287}),
+    (1288, {'date_collected': datetime.date(2012, 12, 12), 'date_analyzed': None, 'date_extracted': None, 'site_id': 57, 'schedule_id': None, 'upload_id': None, 'active': False, 'id': 1288}),
+    (1289, {'date_collected': datetime.date(2013, 1, 8), 'date_analyzed': None, 'date_extracted': None, 'site_id': 49, 'schedule_id': None, 'upload_id': None, 'active': False, 'id': 1289}),
+    (1290, {'date_collected': datetime.date(2013, 1, 11), 'date_analyzed': None, 'date_extracted': None, 'site_id': 74, 'schedule_id': None, 'upload_id': None, 'active': True, 'id': 1290}),
+    (1291, {'date_collected': datetime.date(2013, 2, 6), 'date_analyzed': None, 'date_extracted': None, 'site_id': 8, 'schedule_id': 19762, 'upload_id': None, 'active': True, 'id': 1291}),
+    (1292, {'date_collected': datetime.date(2013, 2, 11), 'date_analyzed': None, 'date_extracted': None, 'site_id': 35, 'schedule_id': 19772, 'upload_id': None, 'active': True, 'id': 1292}),
+    (1293, {'date_collected': datetime.date(2013, 2, 13), 'date_analyzed': None, 'date_extracted': None, 'site_id': 18, 'schedule_id': 19769, 'upload_id': None, 'active': True, 'id': 1293}),
+    (1294, {'date_collected': datetime.date(2013, 2, 21), 'date_analyzed': None, 'date_extracted': None, 'site_id': 11, 'schedule_id': 19768, 'upload_id': None, 'active': True, 'id': 1294}),
+    (1295, {'date_collected': datetime.date(2013, 2, 12), 'date_analyzed': None, 'date_extracted': None, 'site_id': 35, 'schedule_id': None, 'upload_id': None, 'active': False, 'id': 1295}),
+    (1296, {'date_collected': datetime.date(2013, 3, 18), 'date_analyzed': None, 'date_extracted': None, 'site_id': 14, 'schedule_id': 19825, 'upload_id': None, 'active': True, 'id': 1296}),
+]

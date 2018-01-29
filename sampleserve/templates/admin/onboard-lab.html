@@ -1,0 +1,25 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<div class="container">
+    <h3>Onboard New Lab</h3>
+    <div class="row">
+        <div class="col-md-6">
+            {% if not request.args.get('lab_id') %}
+            <form action="" method="POST">
+                {{form_field(form.lab_name)}}
+                <hr>
+                <h4>Lab Admin Info</h4>
+                {{form_field(form.name)}}
+                {{form_field(form.email)}}
+                <button type="submit" class="btn btn-primary">Create Lab &amp; Invite Lab Admin</button>
+            </form>
+            {% else %}
+                <p>An invitation to finish setting up a Lab Admin account for {{ lab.title }} has been sent to <a href="mailto:{{ user.email }}">{{ user.email }}</a>.</p>
+                <p>Portal URL: <a href="http://{{ lab.url }}.{{ request.host }}">http://{{ lab.url }}.{{ request.host }}</a></p>
+                <p></p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
